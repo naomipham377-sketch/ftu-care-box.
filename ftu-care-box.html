@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FTU Care Box – Trạm Cứu Trợ Ngày Dâu</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --red: #B5271F;
+  --red-dark: #8C1D16;
+  --red-mid: #C0392B;
+  --red-light: #E8736A;
+  --red-pale: #FDECEA;
+  --cream: #FDF6F0;
+  --blush: #FAE0DC;
+  --white: #FFFFFF;
+  --text: #2C1A18;
+  --text-mid: #6B3A35;
+  --text-soft: #9E6B66;
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 32px;
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: 'Be Vietnam Pro', sans-serif; background: var(--cream); color: var(--text); line-height: 1.7; }
+
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: var(--red-light); border-radius: 3px; }
+
+/* ─── NAV ─── */
+.nav-top {
+  background: var(--white);
+  padding: 0 6vw;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 68px;
+  border-bottom: 1px solid #F2D5D2;
+  position: sticky; top: 0; z-index: 200;
+  box-shadow: 0 2px 16px rgba(181,39,31,0.06);
+}
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px; font-weight: 700;
+  color: var(--red);
+}
+.nav-logo span { font-size: 10px; background: var(--red-pale); color: var(--red); padding: 2px 8px; border-radius: 20px; font-family: 'Be Vietnam Pro', sans-serif; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; vertical-align: middle; margin-left: 6px; }
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a { font-size: 13px; font-weight: 500; color: var(--text-mid); transition: color .2s; }
+.nav-links a:hover { color: var(--red); }
+.nav-cta { background: var(--red); color: white; border: none; border-radius: 50px; padding: 10px 22px; font-size: 13px; font-weight: 600; cursor: pointer; transition: background .2s; font-family: inherit; }
+.nav-cta:hover { background: var(--red-dark); }
+
+/* ─── HERO ─── */
+.hero {
+  background: var(--red);
+  min-height: 82vh;
+  padding: 0 6vw;
+  display: flex; align-items: center; justify-content: space-between;
+  position: relative; overflow: hidden;
+  gap: 40px;
+}
+.hero::before {
+  content: '';
+  position: absolute; right: -100px; top: -100px;
+  width: 500px; height: 500px; border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+}
+.hero::after {
+  content: '';
+  position: absolute; left: 40%; bottom: -80px;
+  width: 320px; height: 320px; border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+}
+.hero-left { position: relative; z-index: 2; max-width: 520px; }
+.hero-eyebrow {
+  display: inline-block;
+  background: rgba(255,255,255,0.15);
+  color: white; font-size: 11px; font-weight: 600;
+  letter-spacing: 2px; text-transform: uppercase;
+  padding: 6px 16px; border-radius: 20px;
+  margin-bottom: 24px;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(36px, 5vw, 66px);
+  color: white; line-height: 1.12;
+  margin-bottom: 20px;
+}
+.hero h1 em { font-style: italic; color: #FFD0CC; }
+.hero-sub {
+  color: rgba(255,255,255,0.82); font-size: 16px; font-weight: 300;
+  line-height: 1.8; margin-bottom: 36px; max-width: 420px;
+}
+.hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+.btn-white { background: white; color: var(--red); border: none; border-radius: 50px; padding: 14px 30px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: inherit; transition: transform .15s, box-shadow .15s; }
+.btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+.btn-ghost { background: transparent; color: white; border: 2px solid rgba(255,255,255,0.5); border-radius: 50px; padding: 12px 28px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: inherit; transition: all .2s; }
+.btn-ghost:hover { border-color: white; background: rgba(255,255,255,0.1); }
+
+.hero-right { position: relative; z-index: 2; display: flex; flex-direction: column; gap: 16px; align-items: flex-end; flex-shrink: 0; }
+.hero-card {
+  background: white;
+  border-radius: var(--radius-md);
+  padding: 24px 28px;
+  text-align: center;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+  width: 220px;
+}
+.hero-card .icon { font-size: 44px; margin-bottom: 10px; }
+.hero-card strong { display: block; color: var(--red); font-size: 15px; margin-bottom: 4px; }
+.hero-card p { color: var(--text-soft); font-size: 13px; font-style: italic; }
+.hero-pill {
+  background: rgba(255,255,255,0.18);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 50px; padding: 12px 20px;
+  color: white; font-size: 13px; font-weight: 500;
+  display: flex; align-items: center; gap: 8px;
+}
+.hero-pill .dot { width: 8px; height: 8px; border-radius: 50%; background: #7FFF9A; flex-shrink: 0; animation: pulse 1.8s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+/* ─── SECTION BASE ─── */
+section { padding: 80px 6vw; }
+.section-tag {
+  display: inline-block;
+  background: var(--red-pale); color: var(--red);
+  font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  padding: 5px 14px; border-radius: 20px; margin-bottom: 14px;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 3.5vw, 44px);
+  color: var(--text); margin-bottom: 12px; line-height: 1.2;
+}
+.section-title em { font-style: italic; color: var(--red); }
+.section-sub { color: var(--text-soft); font-size: 16px; font-weight: 300; max-width: 540px; }
+
+/* ─── STATS STRIP ─── */
+.stats-strip {
+  background: var(--red-pale);
+  padding: 32px 6vw;
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+}
+.stat-cell {
+  text-align: center; padding: 20px;
+  border-right: 1px solid #F2C8C4;
+}
+.stat-cell:last-child { border-right: none; }
+.stat-cell .num {
+  font-family: 'Playfair Display', serif;
+  font-size: 40px; font-weight: 700; color: var(--red);
+  display: block; line-height: 1;
+}
+.stat-cell .label { font-size: 13px; color: var(--text-mid); font-weight: 500; margin-top: 6px; }
+
+/* ─── ABOUT ─── */
+.about { background: var(--white); }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+.about-visual {
+  background: var(--red);
+  border-radius: var(--radius-lg);
+  padding: 48px 40px;
+  text-align: center;
+  position: relative; overflow: hidden;
+}
+.about-visual::before {
+  content: '';
+  position: absolute; bottom: -40px; right: -40px;
+  width: 200px; height: 200px; border-radius: 50%;
+  background: rgba(255,255,255,0.07);
+}
+.about-big-icon { font-size: 90px; display: block; margin-bottom: 16px; }
+.about-visual-text { color: white; font-size: 15px; line-height: 1.8; font-style: italic; opacity: .88; }
+.about-visual-slogan {
+  margin-top: 20px; display: inline-block;
+  background: rgba(255,255,255,0.15); color: white;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 50px; padding: 8px 20px; font-size: 14px; font-weight: 600;
+}
+.about-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+.chip {
+  background: var(--red-pale); color: var(--red);
+  border-radius: 50px; padding: 8px 18px; font-size: 13px; font-weight: 600;
+  border: 1px solid #F2C0BB;
+}
+
+/* ─── HOW IT WORKS ─── */
+.how { background: var(--cream); }
+.steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+.step-card {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  padding: 36px 28px;
+  border: 1px solid #F2D5D2;
+  position: relative; overflow: hidden;
+  transition: transform .2s, box-shadow .2s;
+}
+.step-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(181,39,31,0.10); }
+.step-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 56px; font-weight: 700; color: var(--red-pale);
+  line-height: 1; margin-bottom: 16px; display: block;
+}
+.step-icon { font-size: 36px; margin-bottom: 14px; display: block; }
+.step-card h3 { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+.step-card p { font-size: 14px; color: var(--text-soft); line-height: 1.75; }
+.step-card.highlight { background: var(--red); border-color: var(--red); }
+.step-card.highlight .step-num { color: rgba(255,255,255,0.15); }
+.step-card.highlight h3 { color: white; }
+.step-card.highlight p { color: rgba(255,255,255,0.8); }
+
+/* ─── CARE HUB ─── */
+.care { background: var(--white); }
+.care-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px; flex-wrap: wrap; gap: 20px; }
+.care-tabs { display: flex; gap: 8px; }
+.tab-btn {
+  background: var(--cream); border: 1px solid #F2D5D2; border-radius: 50px;
+  padding: 10px 20px; font-size: 13px; font-weight: 600; color: var(--text-mid);
+  cursor: pointer; font-family: inherit; transition: all .2s;
+}
+.tab-btn.active, .tab-btn:hover { background: var(--red); color: white; border-color: var(--red); }
+.tips-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.tip-card {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid #F2D5D2;
+  background: var(--white);
+  transition: transform .2s, box-shadow .2s;
+}
+.tip-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(181,39,31,0.10); }
+.tip-img {
+  background: var(--red-pale);
+  height: 160px; display: flex; align-items: center; justify-content: center;
+  font-size: 72px;
+}
+.tip-body { padding: 22px; }
+.tip-cat {
+  font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--red); margin-bottom: 8px;
+}
+.tip-card h4 { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+.tip-card p { font-size: 13px; color: var(--text-soft); line-height: 1.7; }
+.tip-link { display: inline-block; margin-top: 12px; font-size: 13px; font-weight: 600; color: var(--red); }
+.tip-link:hover { text-decoration: underline; }
+
+/* ─── EMERGENCY ─── */
+.emergency {
+  background: linear-gradient(135deg, var(--red) 0%, var(--red-dark) 100%);
+  padding: 80px 6vw;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+}
+.emerg-left h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px,3.5vw,46px);
+  color: white; margin-bottom: 16px; line-height: 1.2;
+}
+.emerg-left p { color: rgba(255,255,255,0.82); font-size: 16px; font-weight: 300; line-height: 1.8; margin-bottom: 32px; }
+.emerg-steps { display: flex; flex-direction: column; gap: 16px; }
+.emerg-step {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: var(--radius-sm); padding: 16px 20px;
+  display: flex; align-items: center; gap: 16px;
+  color: white;
+}
+.emerg-step .estep-icon { font-size: 28px; flex-shrink: 0; }
+.emerg-step strong { display: block; font-size: 15px; margin-bottom: 2px; }
+.emerg-step span { font-size: 13px; opacity: .78; }
+.emerg-right { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.loc-card {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: var(--radius-sm); padding: 20px;
+  text-align: center; color: white;
+}
+.loc-card .loc-icon { font-size: 32px; margin-bottom: 8px; }
+.loc-card strong { display: block; font-size: 15px; margin-bottom: 4px; }
+.loc-card span { font-size: 12px; opacity: .75; }
+
+/* ─── COMMUNITY WALL ─── */
+.community { background: var(--cream); }
+.wall-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 40px; }
+.wall-card {
+  background: var(--white); border: 1px solid #F2D5D2;
+  border-radius: var(--radius-md); padding: 24px;
+  transition: transform .2s;
+}
+.wall-card:hover { transform: translateY(-3px); }
+.wall-avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--red); color: white; font-size: 16px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
+.wall-card blockquote { font-size: 14px; color: var(--text-mid); line-height: 1.75; font-style: italic; margin-bottom: 14px; }
+.wall-card cite { font-size: 12px; color: var(--text-soft); font-style: normal; font-weight: 600; }
+.wall-hearts { color: var(--red); font-size: 13px; margin-top: 10px; }
+.wall-add {
+  border: 2px dashed #F2C0BB; border-radius: var(--radius-md); padding: 24px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; gap: 10px; cursor: pointer; transition: border-color .2s;
+}
+.wall-add:hover { border-color: var(--red); }
+.wall-add span:first-child { font-size: 32px; }
+.wall-add p { font-size: 14px; color: var(--text-soft); }
+.wall-add strong { color: var(--red); font-size: 14px; }
+
+/* ─── DONATION ─── */
+.donation { background: var(--white); }
+.donation-inner {
+  background: var(--red-pale); border-radius: var(--radius-lg);
+  padding: 60px 48px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+  border: 1px solid #F2C0BB;
+}
+.don-left h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(26px,3vw,40px);
+  color: var(--text); margin-bottom: 16px;
+}
+.don-left p { color: var(--text-mid); font-size: 15px; line-height: 1.8; margin-bottom: 28px; font-weight: 300; }
+.don-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+.don-opt {
+  border: 2px solid #F2C0BB; border-radius: var(--radius-sm); padding: 16px 12px;
+  text-align: center; cursor: pointer; transition: all .2s; background: white;
+}
+.don-opt:hover, .don-opt.active { border-color: var(--red); background: var(--red); color: white; }
+.don-opt .amount { font-size: 18px; font-weight: 700; display: block; }
+.don-opt .desc { font-size: 11px; opacity: .75; margin-top: 4px; }
+.btn-donate { background: var(--red); color: white; border: none; border-radius: 50px; padding: 15px 36px; font-size: 16px; font-weight: 700; cursor: pointer; font-family: inherit; transition: background .2s, transform .15s; width: 100%; }
+.btn-donate:hover { background: var(--red-dark); transform: translateY(-2px); }
+.don-right { display: flex; flex-direction: column; gap: 16px; }
+.don-impact {
+  background: white; border-radius: var(--radius-sm); padding: 20px 24px;
+  display: flex; align-items: center; gap: 16px;
+  border: 1px solid #F2D5D2;
+}
+.don-impact .imp-icon { font-size: 32px; flex-shrink: 0; }
+.don-impact strong { display: block; font-size: 15px; color: var(--text); margin-bottom: 2px; }
+.don-impact span { font-size: 13px; color: var(--text-soft); }
+
+/* ─── QR SECTION ─── */
+.qr-section { background: var(--cream); }
+.qr-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.qr-box {
+  background: var(--white); border-radius: var(--radius-md); padding: 40px;
+  border: 1px solid #F2D5D2; text-align: center;
+}
+.qr-placeholder {
+  width: 160px; height: 160px; margin: 0 auto 20px;
+  background: var(--red-pale);
+  border: 3px solid var(--red);
+  border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 72px;
+}
+.qr-box h3 { font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+.qr-box p { font-size: 14px; color: var(--text-soft); line-height: 1.75; margin-bottom: 20px; }
+.btn-red { background: var(--red); color: white; border: none; border-radius: 50px; padding: 12px 28px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; transition: background .2s; }
+.btn-red:hover { background: var(--red-dark); }
+.form-col { display: flex; flex-direction: column; gap: 16px; }
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group label { font-size: 13px; font-weight: 600; color: var(--text-mid); }
+.form-group input, .form-group select, .form-group textarea {
+  border: 1.5px solid #F2D5D2; border-radius: var(--radius-sm);
+  padding: 12px 16px; font-size: 14px; font-family: inherit;
+  color: var(--text); background: var(--white);
+  outline: none; transition: border-color .2s;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--red); }
+.form-group textarea { resize: vertical; min-height: 100px; }
+
+/* ─── FAQ ─── */
+.faq { background: var(--white); }
+.faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 40px; }
+.faq-item {
+  background: var(--cream); border: 1px solid #F2D5D2; border-radius: var(--radius-sm);
+  padding: 24px;
+}
+.faq-item h4 { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 10px; display: flex; align-items: flex-start; gap: 10px; }
+.faq-item h4::before { content: 'Q'; color: var(--red); font-family: 'Playfair Display', serif; font-size: 18px; font-style: italic; flex-shrink: 0; }
+.faq-item p { font-size: 14px; color: var(--text-soft); line-height: 1.75; padding-left: 26px; }
+
+/* ─── CTA BANNER ─── */
+.cta-banner {
+  background: var(--red);
+  padding: 56px 6vw;
+  text-align: center;
+}
+.cta-banner h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(24px,3vw,40px);
+  color: white; margin-bottom: 10px;
+}
+.cta-banner p { color: rgba(255,255,255,0.82); font-size: 16px; margin-bottom: 28px; font-weight: 300; }
+.cta-banner-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+/* ─── FOOTER ─── */
+footer {
+  background: #1C0C0A;
+  padding: 60px 6vw 32px;
+  color: rgba(255,255,255,0.65);
+}
+.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+.footer-brand .logo { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; color: white; margin-bottom: 14px; }
+.footer-brand p { font-size: 14px; line-height: 1.8; max-width: 280px; }
+.footer-col h4 { font-size: 13px; font-weight: 700; color: rgba(255,255,255,.85); letter-spacing: .5px; text-transform: uppercase; margin-bottom: 16px; }
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.footer-col ul li a { font-size: 13px; color: rgba(255,255,255,.5); transition: color .2s; }
+.footer-col ul li a:hover { color: white; }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,.08); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+.footer-bottom p { font-size: 12px; }
+.footer-heart { color: #E8736A; }
+.footer-email { display: flex; gap: 0; }
+.footer-email input { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-right: none; border-radius: 50px 0 0 50px; padding: 10px 18px; font-size: 13px; color: white; font-family: inherit; outline: none; min-width: 220px; }
+.footer-email input::placeholder { color: rgba(255,255,255,.35); }
+.footer-email button { background: var(--red); color: white; border: none; border-radius: 0 50px 50px 0; padding: 10px 20px; font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+  .hero { flex-direction: column; padding: 60px 6vw; text-align: center; min-height: auto; }
+  .hero-right { align-items: center; flex-direction: row; flex-wrap: wrap; justify-content: center; }
+  .about-grid, .emergency, .donation-inner, .qr-inner, .footer-top { grid-template-columns: 1fr; }
+  .steps-grid, .tips-grid, .wall-grid, .faq-grid { grid-template-columns: 1fr; }
+  .emerg-right { grid-template-columns: 1fr 1fr; }
+  .stats-strip { grid-template-columns: 1fr 1fr; }
+  .stat-cell:nth-child(2) { border-right: none; }
+  .hero-deco { display: none; }
+  .nav-links { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav class="nav-top">
+  <div class="nav-logo">🍓 FTU Care Box <span>FTU</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">Về dự án</a></li>
+    <li><a href="#how">Cách hoạt động</a></li>
+    <li><a href="#care">Sức khỏe</a></li>
+    <li><a href="#community">Cộng đồng</a></li>
+    <li><a href="#donate">Ủng hộ</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('qr').scrollIntoView({behavior:'smooth'})">📍 Báo cáo hộp</button>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">🩷 Trạm Cứu Trợ Ngày Dâu — FTU</div>
+    <h1>Bởi vì <em>bất ngờ</em><br>không nên là<br>gánh nặng</h1>
+    <p class="hero-sub">FTU Care Box — chiếc hộp nhỏ chứa đầy sự quan tâm, đặt tại nhà vệ sinh nữ các khu giảng đường FTU. Miễn phí, bí mật, và luôn sẵn sàng khi bạn cần.</p>
+    <div class="hero-btns">
+      <button class="btn-white" onclick="document.getElementById('care').scrollIntoView({behavior:'smooth'})">🌿 Mẹo sức khỏe</button>
+      <button class="btn-ghost" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">Tìm hiểu thêm →</button>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-card">
+      <div class="icon">📦</div>
+      <strong>"Lấy 1 – Trả 1"</strong>
+      <p>Cộng đồng chia sẻ, cùng nhau tiếp sức</p>
+    </div>
+    <div class="hero-pill">
+      <span class="dot"></span>
+      Hoạt động tại khu A, B, C, V...
+    </div>
+    <div class="hero-card">
+      <div class="icon">🌸</div>
+      <strong>Chỉ mình bạn biết thôi</strong>
+      <p>Kín đáo, nhẹ nhàng — như một người bạn luôn ở đó</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ STATS ══ -->
+<div class="stats-strip">
+  <div class="stat-cell">
+    <span class="num">70%+</span>
+    <div class="label">Nữ sinh tại FTU</div>
+  </div>
+  <div class="stat-cell">
+    <span class="num">4+</span>
+    <div class="label">Khu vực đặt hộp (A, B, C, V)</div>
+  </div>
+  <div class="stat-cell">
+    <span class="num">0đ</span>
+    <div class="label">Hoàn toàn miễn phí</div>
+  </div>
+  <div class="stat-cell">
+    <span class="num">24/7</span>
+    <div class="label">Sẵn sàng khi bạn cần</div>
+  </div>
+</div>
+
+<!-- ══ ABOUT ══ -->
+<section class="about" id="about">
+  <div class="about-grid">
+    <div class="about-visual">
+      <img src="hop-care-box.png" alt="Hộp Care Box - Trạm Cứu Trợ Ngày Dâu" style="width:100%; border-radius:16px; margin-bottom:20px; object-fit:cover;">
+      <p class="about-visual-text">"Có những ngày tháng bạn cần được chăm sóc — và điều đó hoàn toàn bình thường."</p>
+      <div class="about-visual-slogan">Take one · Leave one 🌸</div>
+    </div>
+    <div>
+      <div class="section-tag">Về dự án</div>
+      <h2 class="section-title">Tại sao <em>FTU Care Box</em> ra đời?</h2>
+      <p style="color: var(--text-soft); font-size: 15px; line-height: 1.85; margin-bottom: 20px; font-weight: 300;">
+        Nữ sinh FTU thường có lịch học kéo dài cả ngày. Áp lực thi cử, deadline, thức khuya khiến chu kỳ dễ rối loạn và đến bất ngờ. Khi đó, việc phải chạy ra cổng Chùa Láng tốn hàng chục phút — hay phải ngại ngùng hỏi mượn bạn bè — là điều không ai muốn.
+      </p>
+      <p style="color: var(--text-soft); font-size: 15px; line-height: 1.85; margin-bottom: 28px; font-weight: 300;">
+        FTU Care Box ra đời để giải quyết đúng vấn đề đó: một chiếc hộp nhỏ xinh, đặt ngay trong nhà vệ sinh nữ, chứa băng vệ sinh miễn phí cùng thông tin sức khỏe hữu ích — hoạt động theo tinh thần <strong style="color:var(--red)">cộng đồng chia sẻ</strong>.
+      </p>
+      <div class="about-chips">
+        <div class="chip">📦 Hộp mica trong suốt</div>
+        <div class="chip">🩷 Miễn phí 100%</div>
+        <div class="chip">🔒 Riêng tư & kín đáo</div>
+        <div class="chip">♻️ Nguyên lý Pay-it-forward</div>
+        <div class="chip">📲 Tích hợp QR Code</div>
+        <div class="chip">🌸 Bình thường hóa kinh nguyệt</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ HOW IT WORKS ══ -->
+<section class="how" id="how">
+  <div style="text-align:center; max-width:600px; margin: 0 auto 48px;">
+    <div class="section-tag">Cách hoạt động</div>
+    <h2 class="section-title">Đơn giản như<br><em>lấy và để lại</em></h2>
+  </div>
+  <div class="steps-grid">
+    <div class="step-card">
+      <span class="step-num">01</span>
+      <span class="step-icon">😮</span>
+      <h3>Ơ, kỳ về bất ngờ rồi...</h3>
+      <p>Giữa buổi học mà không mang theo gì — đừng hoảng nhé! Hộp Care Box đang chờ bạn ngay trong nhà vệ sinh đó.</p>
+    </div>
+    <div class="step-card highlight">
+      <span class="step-num">02</span>
+      <span class="step-icon">📦</span>
+      <h3>Ghé nhà vệ sinh, lấy dùng thôi!</h3>
+      <p>Hộp gắn ngay trên tường, nhìn là thấy liền. Lấy một miếng, không cần hỏi ai, không ai biết cả — yên tâm nha!</p>
+    </div>
+    <div class="step-card">
+      <span class="step-num">03</span>
+      <span class="step-icon">🔄</span>
+      <h3>Khi có thể, mình để lại cho bạn sau nhé</h3>
+      <p>Hôm sau mua bịch mới rồi, bỏ lại 1 miếng vào hộp giúp mình nhé — để bạn tiếp theo cũng được "cứu" như bạn hôm nay!</p>
+    </div>
+    <div class="step-card">
+      <span class="step-num">04</span>
+      <span class="step-icon">📲</span>
+      <h3>Quét QR — có cả kho mẹo hay nữa đó!</h3>
+      <p>Mã QR ngay trên hộp dẫn thẳng về trang này — mẹo giảm đau, kiến thức sức khỏe và cả form báo hộp hết nữa nhé.</p>
+    </div>
+    <div class="step-card">
+      <span class="step-num">05</span>
+      <span class="step-icon">🫶</span>
+      <h3>Nhân sự dự án luôn để mắt tới</h3>
+      <p>Đội ngũ của Care Box sẽ kiểm tra và bổ sung hộp thường xuyên, đảm bảo hộp lúc nào cũng sạch sẽ và đầy đủ cho bạn.</p>
+    </div>
+    <div class="step-card">
+      <span class="step-num">06</span>
+      <span class="step-icon">💝</span>
+      <h3>Kể cho bạn bè nghe đi!</h3>
+      <p>Share dự án lên story, rủ bạn cùng ủng hộ, hoặc đơn giản là bỏ lại 1 miếng — mỗi hành động nhỏ đều có ý nghĩa lớn lắm.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CARE HUB ══ -->
+<section class="care" id="care">
+  <div class="care-header">
+    <div>
+      <div class="section-tag">Sức khỏe & Chăm sóc</div>
+      <h2 class="section-title">Care & <em>Health Hub</em></h2>
+      <p class="section-sub">Kiến thức thiết thực cho những ngày đặc biệt của bạn.</p>
+    </div>
+    <div class="care-tabs">
+      <button class="tab-btn active">Tất cả</button>
+      <button class="tab-btn">Giảm đau</button>
+      <button class="tab-btn">Dinh dưỡng</button>
+      <button class="tab-btn">Tâm lý</button>
+      <button class="tab-btn" onclick="window.location.href='blog.html'" style="background:var(--red);color:white;border-color:var(--red);">✍️ Blog</button>
+    </div>
+  </div>
+  <div class="tips-grid">
+    <div class="tip-card">
+      <div class="tip-img">🌡️</div>
+      <div class="tip-body">
+        <div class="tip-cat">Giảm đau</div>
+        <h4>5 cách giảm đau bụng kinh không cần thuốc</h4>
+        <p>Chườm nóng, uống trà gừng, xoa bụng nhẹ nhàng theo chiều kim đồng hồ... các mẹo đơn giản nhưng hiệu quả ngay tại trường.</p>
+        <a class="tip-link" href="blog-giam-dau.html">Đọc thêm →</a>
+      </div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-img">🥗</div>
+      <div class="tip-body">
+        <div class="tip-cat">Dinh dưỡng</div>
+        <h4>Ăn gì trong kỳ kinh nguyệt để khỏe hơn?</h4>
+        <p>Thực phẩm giàu sắt, magie và omega-3 giúp cơ thể bù đắp lượng máu mất và giảm triệu chứng khó chịu.</p>
+        <a class="tip-link" href="blog-dinh-duong.html">Đọc thêm →</a>
+      </div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-img">🧘</div>
+      <div class="tip-body">
+        <div class="tip-cat">Tâm lý</div>
+        <h4>Tại sao dễ cáu gắt và buồn trong kỳ kinh?</h4>
+        <p>Sự thay đổi hormone estrogen và progesterone ảnh hưởng trực tiếp đến tâm trạng. Hiểu để không tự trách mình.</p>
+        <a class="tip-link" href="blog-tam-ly.html">Đọc thêm →</a>
+      </div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-img">💊</div>
+      <div class="tip-body">
+        <div class="tip-cat">Y tế</div>
+        <h4>Khi nào cần gặp bác sĩ phụ khoa?</h4>
+        <p>Đau quá mức, chu kỳ không đều, ra nhiều... những dấu hiệu bạn không nên bỏ qua về sức khỏe sinh sản.</p>
+        <a class="tip-link" href="blog-y-te.html">Đọc thêm →</a>
+      </div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-img">🌸</div>
+      <div class="tip-body">
+        <div class="tip-cat">Vệ sinh</div>
+        <h4>Cách dùng băng vệ sinh đúng cách & an toàn</h4>
+        <p>Thời gian thay, cách bảo quản và vệ sinh vùng kín đúng cách giúp phòng tránh viêm nhiễm hiệu quả.</p>
+        <a class="tip-link" href="blog-ve-sinh.html">Đọc thêm →</a>
+      </div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-img">📅</div>
+      <div class="tip-body">
+        <div class="tip-cat">Theo dõi</div>
+        <h4>Tại sao sinh viên nữ dễ rối loạn chu kỳ?</h4>
+        <p>Stress, thiếu ngủ, thay đổi chế độ ăn vì chạy deadline — tất cả đều ảnh hưởng đến hormone và chu kỳ của bạn.</p>
+        <a class="tip-link" href="blog-roi-loan.html">Đọc thêm →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ EMERGENCY ══ -->
+<section class="emergency" id="emergency">
+  <div class="emerg-left">
+    <h2>Hộp Care Box<br>ở đâu trong trường?</h2>
+    <p>Các hộp được đặt bên trong nhà vệ sinh nữ tại các khu giảng đường chính. Kín đáo, dễ tìm, luôn sẵn sàng.</p>
+    <div class="emerg-steps">
+      <div class="emerg-step">
+        <span class="estep-icon">📍</span>
+        <div>
+          <strong>Đi vào nhà vệ sinh nữ</strong>
+          <span>Hộp gắn trên tường, gần cửa ra vào</span>
+        </div>
+      </div>
+      <div class="emerg-step">
+        <span class="estep-icon">📦</span>
+        <div>
+          <strong>Tìm hộp mica trong suốt</strong>
+          <span>Có logo 🍓 và slogan "Take one · Leave one"</span>
+        </div>
+      </div>
+      <div class="emerg-step">
+        <span class="estep-icon">🫶</span>
+        <div>
+          <strong>Lấy và yên tâm học tiếp</strong>
+          <span>Không cần đăng ký, không cần trả tiền</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="emerg-right">
+    <div class="loc-card">
+      <div class="loc-icon">🏛️</div>
+      <strong>Khu A</strong>
+      <span>Tầng 2, 3, 4<br>Nhà vệ sinh nữ</span>
+    </div>
+    <div class="loc-card">
+      <div class="loc-icon">📚</div>
+      <strong>Khu B</strong>
+      <span>Tầng 1, 2, 3<br>Nhà vệ sinh nữ</span>
+    </div>
+    <div class="loc-card">
+      <div class="loc-icon">🎓</div>
+      <strong>Khu C</strong>
+      <span>Tầng 2, 3<br>Nhà vệ sinh nữ</span>
+    </div>
+    <div class="loc-card">
+      <div class="loc-icon">✨</div>
+      <strong>Khu V</strong>
+      <span>Tầng 1, 2<br>Nhà vệ sinh nữ</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ COMMUNITY WALL ══ -->
+<section class="community" id="community">
+  <div style="text-align:center; max-width:560px; margin: 0 auto 16px;">
+    <div class="section-tag">Cộng đồng</div>
+    <h2 class="section-title">Những <em>FTUer</em> chia sẻ</h2>
+    <p class="section-sub" style="margin: 0 auto;">Những câu chuyện thật từ các bạn đã được Care Box "cứu trợ" 🍓</p>
+  </div>
+  <div class="wall-grid" style="margin-top:40px;">
+    <div class="wall-card">
+      <div class="wall-avatar">N</div>
+      <blockquote>"Hôm đó đang ngồi ôn thi thì tự nhiên thấy bụng đau âm ỉ, hoảng hết hồn. Chạy vào nhà vệ sinh thấy hộp Care Box — thật sự mừng muốn khóc luôn ấy 😭🍓"</blockquote>
+      <cite>Nguyễn T. — K62 Kinh tế Quốc tế</cite>
+      <div class="wall-hearts">🍓🍓🍓🍓🍓</div>
+    </div>
+    <div class="wall-card">
+      <div class="wall-avatar" style="background:#8C1D16;">M</div>
+      <blockquote>"Trước hay phải chạy ra cổng Chùa Láng mà vừa đau vừa ngại ngùng lắm. Giờ có hộp này rồi, mình còn hay ghé bỏ lại 1 miếng cho bạn sau nữa ✨"</blockquote>
+      <cite>Minh H. — K63 Tài chính Ngân hàng</cite>
+      <div class="wall-hearts">🍓🍓🍓🍓🍓</div>
+    </div>
+    <div class="wall-card">
+      <div class="wall-avatar" style="background:#C0392B;">L</div>
+      <blockquote>"Thích nhất là cái hộp không có gì to tát hết, cứ tự nhiên lấy thôi. Không cần hỏi ai, không ai nhìn — đúng kiểu bạn thân hiểu ý nhau vậy 🥹"</blockquote>
+      <cite>Linh P. — K64 Quản trị Kinh doanh</cite>
+      <div class="wall-hearts">🍓🍓🍓🍓🍓</div>
+    </div>
+    <div class="wall-card">
+      <div class="wall-avatar" style="background:#E8736A;">T</div>
+      <blockquote>"Mình bỏ lại 2 miếng sau khi dùng, cảm giác được 'trả ơn' cho cộng đồng dù nhỏ thôi nhưng ấm áp lắm. Recommend mọi người làm theo nha 🫶"</blockquote>
+      <cite>Thu A. — K63 Luật Thương mại Quốc tế</cite>
+      <div class="wall-hearts">🍓🍓🍓🍓</div>
+    </div>
+    <div class="wall-card">
+      <div class="wall-avatar" style="background:#922B21;">H</div>
+      <blockquote>"Thấy hộp là chụp story tag cả hội liền 😂 Hôm sau mấy đứa bạn cùng lớp đều biết rồi. Lan tỏa nhanh hơn mình nghĩ nhiều!"</blockquote>
+      <cite>Hà N. — K64 Marketing Thương mại</cite>
+      <div class="wall-hearts">🍓🍓🍓🍓🍓</div>
+    </div>
+    <div class="wall-add" onclick="window.open('https://forms.google.com','_blank')">
+      <span>✍️</span>
+      <p>Bạn cũng có câu chuyện muốn chia sẻ?</p>
+      <strong>Kể cho mình nghe nhé →</strong>
+    </div>
+  </div>
+</section>
+
+<!-- ══ DONATION ══ -->
+<section class="donation" id="donate">
+  <div class="donation-inner">
+    <div class="don-left">
+      <div class="section-tag">Ủng hộ dự án</div>
+      <h2 class="section-title">Giúp hộp luôn<br><em>đầy băng vệ sinh</em></h2>
+      <p>Mỗi đóng góp nhỏ của bạn giúp duy trì nguồn cung cho các hộp Care Box. Một bịch băng vệ sinh khoảng 20.000đ có thể giúp 10 bạn nữ qua cơn khẩn cấp.</p>
+      <div class="don-options">
+        <div class="don-opt active">
+          <span class="amount">20k</span>
+          <div class="desc">1 bịch BVS</div>
+        </div>
+        <div class="don-opt">
+          <span class="amount">50k</span>
+          <div class="desc">Bổ sung 1 hộp</div>
+        </div>
+        <div class="don-opt">
+          <span class="amount">100k</span>
+          <div class="desc">Hộp cho 1 tuần</div>
+        </div>
+      </div>
+      <button class="btn-donate">💝 Ủng hộ ngay</button>
+      <div style="margin-top:24px; padding:20px; background:white; border-radius:var(--radius-sm); border:1px dashed #F2C0BB; text-align:center;">
+        <p style="font-size:13px; color:var(--text-soft); margin-bottom:12px;">Hoặc chuyển khoản trực tiếp qua QR:</p>
+        <div style="width:160px; height:160px; background:var(--red-pale); border:2px dashed #F2C0BB; border-radius:12px; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:8px; margin:0 auto;">
+          <span style="font-size:32px;">📷</span>
+          <span style="font-size:12px; color:var(--text-soft);">QR sắp có — stay tuned!</span>
+        </div>
+      </div>
+    </div>
+    <div class="don-right">
+      <div class="don-impact">
+        <div class="imp-icon">📦</div>
+        <div>
+          <strong>20.000đ</strong>
+          <span>= 1 bịch băng vệ sinh thông dụng, đủ cho ~10 lần sử dụng</span>
+        </div>
+      </div>
+      <div class="don-impact">
+        <div class="imp-icon">🏫</div>
+        <div>
+          <strong>100.000đ</strong>
+          <span>= duy trì 1 hộp Care Box đầy đủ trong 1 tuần</span>
+        </div>
+      </div>
+      <div class="don-impact">
+        <div class="imp-icon">💝</div>
+        <div>
+          <strong>Tài trợ sản phẩm</strong>
+          <span>Nhãn hàng Diana, Kotex, Laurier... liên hệ để hợp tác</span>
+        </div>
+      </div>
+      <div class="don-impact">
+        <div class="imp-icon">📣</div>
+        <div>
+          <strong>Lan tỏa miễn phí</strong>
+          <span>Chia sẻ dự án lên mạng xã hội cũng là một cách ủng hộ!</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ QR REPORT ══ -->
+<section class="qr-section" id="qr">
+  <div style="text-align:center; max-width:560px; margin: 0 auto 48px;">
+    <div class="section-tag">QR & Phản hồi</div>
+    <h2 class="section-title">Báo cáo & <em>Góp ý</em></h2>
+    <p class="section-sub" style="margin: 0 auto;">Hộp đã hết? Cần bổ sung? Góp ý cải thiện? Bạn có thể báo ngay tại đây.</p>
+  </div>
+  <div class="qr-inner">
+    <div class="qr-box">
+      <div class="qr-placeholder">📲</div>
+      <h3>Quét QR trên hộp</h3>
+      <p>Mỗi hộp Care Box có mã QR riêng dẫn thẳng đến form báo cáo cho hộp đó. Quét và điền trong vòng 30 giây!</p>
+      <button class="btn-red">Tải QR Code về →</button>
+    </div>
+    <div>
+      <h3 style="font-size:20px; font-weight:700; margin-bottom:24px; color:var(--text);">Hoặc điền form trực tiếp</h3>
+      <div class="form-col">
+        <div class="form-group">
+          <label>Vị trí hộp</label>
+          <select>
+            <option>-- Chọn khu vực --</option>
+            <option>Khu A – Tầng 2</option>
+            <option>Khu A – Tầng 3</option>
+            <option>Khu B – Tầng 1</option>
+            <option>Khu B – Tầng 2</option>
+            <option>Khu C – Tầng 2</option>
+            <option>Khu V – Tầng 1</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Loại báo cáo</label>
+          <select>
+            <option>Hộp đã hết, cần bổ sung gấp</option>
+            <option>Hộp bị hỏng / mất</option>
+            <option>Góp ý cải thiện</option>
+            <option>Muốn chia sẻ câu chuyện</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Ghi chú thêm (không bắt buộc)</label>
+          <textarea placeholder="Mô tả chi tiết tình trạng hộp hoặc góp ý của bạn..."></textarea>
+        </div>
+        <button class="btn-red" style="align-self:flex-start; padding: 13px 32px;">Gửi báo cáo 📩</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FAQ ══ -->
+<section class="faq" id="faq">
+  <div style="text-align:center; max-width:560px; margin: 0 auto 16px;">
+    <div class="section-tag">Câu hỏi thường gặp</div>
+    <h2 class="section-title">Bạn đang <em>thắc mắc</em>?</h2>
+  </div>
+  <div class="faq-grid">
+    <div class="faq-item">
+      <h4>Ai được phép dùng hộp Care Box?</h4>
+      <p>Tất cả nữ sinh đang học tập và làm việc tại FTU đều có thể sử dụng hoàn toàn miễn phí, không cần đăng ký hay trình thẻ sinh viên.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Tôi có bắt buộc phải "trả lại" không?</h4>
+      <p>Không bắt buộc! Nhưng nếu có thể, bạn hãy mang 1 miếng sạch bỏ lại hộp để tiếp sức cho bạn tiếp theo. Đó là tinh thần "Pay it forward" của dự án.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Hộp có được bổ sung thường xuyên không?</h4>
+      <p>Có! Đội tình nguyện FTU kiểm tra và bổ sung mỗi tuần. Bạn cũng có thể báo cáo qua form hoặc QR Code nếu hộp đã hết để được bổ sung khẩn cấp.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Dự án được tài trợ bởi ai?</h4>
+      <p>Dự án nhận hỗ trợ từ Đoàn trường, Hội sinh viên và các nhãn hàng chăm sóc sức khỏe phụ nữ như Diana, Kotex, Laurier, cùng với đóng góp từ cộng đồng FTUer.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Làm thế nào để tham gia đội tình nguyện?</h4>
+      <p>Bạn có thể liên hệ CLB Tình nguyện FTU hoặc điền form đăng ký tình nguyện viên trên trang này. Chúng mình rất cần thêm nhân lực!</p>
+    </div>
+    <div class="faq-item">
+      <h4>Tại sao lại gọi là "Ngày Dâu"?</h4>
+      <p>Màu đỏ của quả dâu tây — dịu dàng, tự nhiên và không có gì phải xấu hổ. "Ngày dâu" là cách gọi vui vẻ, bình thường hóa câu chuyện kinh nguyệt trong cộng đồng FTU.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA BANNER ══ -->
+<section class="cta-banner">
+  <h2>FTU — Trường học của sự quan tâm 🍓</h2>
+  <p>Cùng nhau biến FTU thành môi trường giáo dục văn minh và thân thiện nhất Việt Nam.</p>
+  <div class="cta-banner-btns">
+    <button class="btn-white" onclick="document.getElementById('donate').scrollIntoView({behavior:'smooth'})">💝 Ủng hộ dự án</button>
+    <button class="btn-ghost" onclick="document.getElementById('qr').scrollIntoView({behavior:'smooth'})">📩 Gửi phản hồi</button>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="logo">🍓 FTU Care Box</div>
+      <p>"Lấy khi bạn cần, đặt lại khi bạn có sẵn nhé!" — Trạm Cứu Trợ Ngày Dâu, Đại học Ngoại Thương Hà Nội.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Dự án</h4>
+      <ul>
+        <li><a href="#about">Về chúng mình</a></li>
+        <li><a href="#how">Cách hoạt động</a></li>
+        <li><a href="#emergency">Vị trí hộp</a></li>
+        <li><a href="#donate">Ủng hộ</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Sức khỏe</h4>
+      <ul>
+        <li><a href="#care">Mẹo giảm đau</a></li>
+        <li><a href="#care">Dinh dưỡng</a></li>
+        <li><a href="#care">Theo dõi chu kỳ</a></li>
+        <li><a href="#care">Sức khỏe sinh sản</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Liên hệ</h4>
+      <ul>
+        <li><a href="#">Email dự án</a></li>
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+      <div style="margin-top:20px;">
+        <p style="font-size:12px; margin-bottom:10px; color:rgba(255,255,255,.5);">Đăng ký nhận tin:</p>
+        <div class="footer-email">
+          <input type="email" placeholder="Email của bạn...">
+          <button>Đăng ký</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 FTU Care Box · Made with <span class="footer-heart">♥</span> by FTUers, for FTUers</p>
+    <p>Đại học Ngoại Thương — 91 Chùa Láng, Đống Đa, Hà Nội</p>
+  </div>
+</footer>
+
+<script>
+  // Don option toggle
+  document.querySelectorAll('.don-opt').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.don-opt').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+  // Tab toggle
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
